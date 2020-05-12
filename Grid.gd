@@ -18,10 +18,19 @@ func _process(_delta):
 func handle_highlighter_movement():
 	var mouse_pos := get_global_mouse_position()
 	var snapped_pos = mouse_pos.snapped(cell_size)
-
-
-	highlighter.position.x = \
+	
+	snapped_pos.x = \
 		snapped_pos.x if mouse_pos.x > snapped_pos.x else snapped_pos.x - cell_size.x
 
-	highlighter.position.y = \
+	snapped_pos.y = \
 		snapped_pos.y if mouse_pos.y > snapped_pos.y else snapped_pos.y - cell_size.y
+		
+	var v_diff = ($Unit.position - snapped_pos)
+	var diff = abs(v_diff.x / 64) + abs(v_diff.y / 64)
+	
+	if diff > $Unit.total_moves:
+		highlighter.visible = false
+	else:
+		highlighter.visible = true
+
+	highlighter.position = snapped_pos
