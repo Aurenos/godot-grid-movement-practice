@@ -28,7 +28,7 @@ func handle_highlighter_movement():
 	var v_diff = ($Unit.position - snapped_pos)
 	var diff = abs(v_diff.x / 64) + abs(v_diff.y / 64)
 
-	if diff > $Unit.total_moves:
+	if diff > $Unit.movement_range:
 		highlighter.show_bad_color(true)
 	else:
 		highlighter.show_bad_color(false)
